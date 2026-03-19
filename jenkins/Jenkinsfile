@@ -1,16 +1,17 @@
 pipeline {
     agent any
-
+        tools { go '1.19' }
     stages {
         stage('Unit Tests - Backend') {
-            agent {
-                docker {
-                    image 'snakee/golang-junit:1.21'
-                    reuseNode true
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'snakee/golang-junit:1.21'
+            //         reuseNode true
+            //     }
+            // }
             steps {
                 dir('bugtracker-backend') {
+                    sh 'go version'
                     sh 'go test -v ./...'
                 }
             }
