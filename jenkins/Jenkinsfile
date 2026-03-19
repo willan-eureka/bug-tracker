@@ -12,26 +12,6 @@ pipeline {
             }
             
         }
-        stage('Unit Tests - Backend') {
-            // agent {
-            //     docker {
-            //         image 'snakee/golang-junit:1.21'
-            //         reuseNode true
-            //     }
-            // }
-            steps {
-                dir('bugtracker-backend') {
-                    // sh 'go version'
-                    // sh 'go install github.com/jstemmer/go-junit-report/v2@latest'
-                    sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
-                }
-            }
-            post {
-                always {
-                    junit 'bugtracker-backend/test-results.xml'
-                }
-            }
-        }
         stage('Unit Tests - Frontend') {
             agent {
                 docker {
@@ -50,6 +30,24 @@ pipeline {
             post {
                 always {
                     junit 'bugtracker-frontend/test-results.xml'
+                }
+            }
+        }
+        stage('Unit Tests - Backend') {
+            // agent {
+            //     docker {
+            //         image 'snakee/golang-junit:1.21'
+            //         reuseNode true
+            //     }
+            // }
+            steps {
+                dir('bugtracker-backend') {
+                    sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+                }
+            }
+            post {
+                always {
+                    junit 'bugtracker-backend/test-results.xml'
                 }
             }
         }
