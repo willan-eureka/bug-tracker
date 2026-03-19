@@ -4,7 +4,9 @@ pipeline {
     stages {
         state('Check golang installation') {
             steps {
-                sh 'go version'
+                script {
+                    sh 'go version'
+                }
             }
             
         }
