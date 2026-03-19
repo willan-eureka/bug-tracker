@@ -1,6 +1,11 @@
 pipeline {
     agent any
         tools { go '1.19' }
+    environment {
+        // Set GOPATH and add GOPATH/bin to the PATH
+        GOPATH = "${agent.workspace}/go" // Or wherever you prefer the go path to be
+        PATH = "${GOPATH}/bin:${PATH}"
+    }
     stages {
         stage('Check golang installation') {
             steps {
@@ -11,6 +16,24 @@ pipeline {
                 }
             }
             
+        }
+        stage('Unit Tests - Backend') {
+            // agent {
+            //     docker {
+            //         image 'snakee/golang-junit:1.21'
+            //         reuseNode true
+            //     }
+            // }
+            steps {
+                dir('bugtracker-backend') {
+                    sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+                }
+            }
+            post {
+                always {
+                    junit 'bugtracker-backend/test-results.xml'
+                }
+            }
         }
         stage('Unit Tests - Frontend') {
             agent {
@@ -30,24 +53,6 @@ pipeline {
             post {
                 always {
                     junit 'bugtracker-frontend/test-results.xml'
-                }
-            }
-        }
-        stage('Unit Tests - Backend') {
-            // agent {
-            //     docker {
-            //         image 'snakee/golang-junit:1.21'
-            //         reuseNode true
-            //     }
-            // }
-            steps {
-                dir('bugtracker-backend') {
-                    sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
-                }
-            }
-            post {
-                always {
-                    junit 'bugtracker-backend/test-results.xml'
                 }
             }
         }
