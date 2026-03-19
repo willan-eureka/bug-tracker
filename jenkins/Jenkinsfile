@@ -11,7 +11,7 @@ pipeline {
             // }
             steps {
                 dir('bugtracker-backend') {
-                    ssh ''' 
+                    sh ''' 
                         go version
                         go install github.com/jstemmer/go-junit-report/v2@latest
                         go test -v ./... 2>&1 | go-junit-report > test-results.xml
