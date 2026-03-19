@@ -2,23 +2,24 @@ pipeline {
     agent any
         tools { go '1.19' }
     stages {
-        stage('Check golang installation') {
-            steps {
-                // sh 'go version'
-                script {
-                    sh 'go version'
-                    sh 'go install github.com/jstemmer/go-junit-report/v2@latest'
+        // stage('Check golang installation') {
+        //     steps {
+        //         // sh 'go version'
+        //         script {
+        //             sh 'go version'
+        //             sh 'go install github.com/jstemmer/go-junit-report/v2@latest'
+        //         }
+        //     }
+            
+        // }
+        stage('Unit Tests - Backend') {
+            agent {
+                docker {
+                    // image 'snakee/golang-junit:1.21'
+                    image 'jfrench/go-junit-report'
+                    reuseNode true
                 }
             }
-            
-        }
-        stage('Unit Tests - Backend') {
-            // agent {
-            //     docker {
-            //         image 'snakee/golang-junit:1.21'
-            //         reuseNode true
-            //     }
-            // }
             steps {
                 dir('bugtracker-backend') {
                     // sh 'go version'
