@@ -2,8 +2,9 @@ pipeline {
     agent any
         tools { go '1.19' }
     stages {
-        state('Check golang installation') {
+        stage('Check golang installation') {
             steps {
+                sh 'go version'
                 script {
                     sh 'go version'
                 }
