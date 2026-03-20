@@ -13,17 +13,16 @@ pipeline {
             
         }
         stage('Unit Tests - Backend') {
-            agent {
-                docker {
-                    image 'snakee/golang-junit:1.22'
-                    // image 'andrskom/golang-junit:1.11.5'
-                    reuseNode true
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'snakee/golang-junit:1.22'
+            //         reuseNode true
+            //     }
+            // }
             steps {
                 dir('bugtracker-backend') {
-                    sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
-                    // sh 'go test -v ./...'
+                    // sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+                    sh 'go test -v ./...'
                 }
             }
             // post {
