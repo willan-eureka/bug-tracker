@@ -1,18 +1,13 @@
 pipeline {
     agent any
         tools { go '1.19' }
-    environment {
-        // Set GOPATH and add GOPATH/bin to the PATH
-        GOPATH = "${agent.workspace}/go" // Or wherever you prefer the go path to be
-        PATH = "${GOPATH}/bin:${PATH}"
-    }
     stages {
         stage('Check golang installation') {
             steps {
                 // sh 'go version'
                 script {
                     sh 'go version'
-                    sh 'go install github.com/jstemmer/go-junit-report/v2@latest'
+                    // sh 'go install github.com/jstemmer/go-junit-report/v2@latest'
                 }
             }
             
@@ -26,14 +21,15 @@ pipeline {
             // }
             steps {
                 dir('bugtracker-backend') {
-                    sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+                    // sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+                    sh 'go test -v ./...'
                 }
             }
-            post {
-                always {
-                    junit 'bugtracker-backend/test-results.xml'
-                }
-            }
+            // post {
+            //     always {
+            //         junit 'bugtracker-backend/test-results.xml'
+            //     }
+            // }
         }
         stage('Unit Tests - Frontend') {
             agent {
