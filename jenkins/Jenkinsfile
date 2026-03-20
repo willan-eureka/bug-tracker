@@ -4,12 +4,13 @@ pipeline {
     stages {
         stage('Execute Unit Tests') {
             parallel {
-                stage ('Check go version') {
+                stage('Check golang installation') {
                     steps {
-                        scripts {
+                        script {
                             sh 'go version'
                         }
                     }
+                    
                 }
                 // stage('Unit Tests - Backend') {
                 //     // agent {
