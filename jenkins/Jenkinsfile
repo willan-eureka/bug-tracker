@@ -2,81 +2,81 @@ pipeline {
     agent any
         tools { go '1.19' }
     stages {
-        stage('Execute Unit Tests') {
-            parallel {
-                stage('Check golang installation') {
-                    steps {
-                        script {
-                            sh 'go version'
-                        }
-                    }
+        // stage('Execute Unit Tests') {
+        //     parallel {
+        //         stage('Check golang installation') {
+        //             steps {
+        //                 script {
+        //                     sh 'go version'
+        //                 }
+        //             }
                     
-                }
-                // stage('Unit Tests - Backend') {
-                //     // agent {
-                //     //     docker {
-                //     //         image 'snakee/golang-junit:1.22'
-                //     //         reuseNode true
-                //     //     }
-                //     // }
-                //     steps {
-                //         dir('bugtracker-backend') {
-                //             sh '''
-                //                 go test -v ./...
-                //                 #Generate coverage report
-                //                 go test -coverprofile=coverage.out -covermode=atomic ./...
-                //                 go tool cover -html=coverage.out -o coverage.html
+        //         }
+        //         stage('Unit Tests - Backend') {
+        //             // agent {
+        //             //     docker {
+        //             //         image 'snakee/golang-junit:1.22'
+        //             //         reuseNode true
+        //             //     }
+        //             // }
+        //             steps {
+        //                 dir('bugtracker-backend') {
+        //                     sh '''
+        //                         go test -v ./...
+        //                         #Generate coverage report
+        //                         go test -coverprofile=coverage.out -covermode=atomic ./...
+        //                         go tool cover -html=coverage.out -o coverage.html
 
-                //                 mkdir -p reports
-                //                 mv coverage.html reports/
-                //             '''
-                //             // sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
-                //             // sh 'go test -v ./...'
+        //                         mkdir -p reports
+        //                         mv coverage.html reports/
+        //                     '''
+        //                     // sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+        //                     // sh 'go test -v ./...'
 
-                //         }
-                //     }
-                //     post {
-                //         always {
-                //             // junit 'bugtracker-backend/test-results.xml'
-                //             publishHTML target: [
-                //                 reportDir: 'bugtracker-backend/reports',
-                //                 reportFiles: 'coverage.html',
-                //                 reportName: 'Backend Coverage Report'
-                //             ]
-                //         }
-                //     }
-                // }
+        //                 }
+        //             }
+        //             post {
+        //                 always {
+        //                     // junit 'bugtracker-backend/test-results.xml'
+        //                     publishHTML target: [
+        //                         reportDir: 'bugtracker-backend/reports',
+        //                         reportFiles: 'coverage.html',
+        //                         reportName: 'Backend Coverage Report'
+        //                     ]
+        //                 }
+        //             }
+        //         }
 
-                // stage('Unit Tests - Frontend') {
-                //     agent {
-                //         docker {
-                //             image 'node:20-alpine'
-                //             reuseNode true
-                //         }
-                //     }
-                //     steps {
-                //         dir('bugtracker-frontend') {
-                //             sh '''
-                //                 npm ci
-                //                 npm test
-                //                 mkdir -p reports
-                //                 mv coverage reports/
-                //             '''
-                //         }
-                //     }
-                //     post {
-                //         always {
-                //             junit 'bugtracker-frontend/test-results.xml'
-                //             publishHTML target: [
-                //                 reportDir: 'bugtracker-frontend/reports/coverage',
-                //                 reportFiles: 'index.html',
-                //                 reportName: 'Frontend Coverage Report'
-                //             ]
-                //         }
-                //     }
-                // }
-            }
-        }
+        //         stage('Unit Tests - Frontend') {
+        //             agent {
+        //                 docker {
+        //                     image 'node:20-alpine'
+        //                     reuseNode true
+        //                 }
+        //             }
+        //             steps {
+        //                 dir('bugtracker-frontend') {
+        //                     sh '''
+        //                         npm ci
+        //                         npm test
+        //                         mkdir -p reports
+        //                         mv coverage reports/
+        //                     '''
+        //                 }
+        //             }
+        //             post {
+        //                 always {
+        //                     junit 'bugtracker-frontend/test-results.xml'
+        //                     publishHTML target: [
+        //                         reportDir: 'bugtracker-frontend/reports/coverage',
+        //                         reportFiles: 'index.html',
+        //                         reportName: 'Frontend Coverage Report'
+        //                     ]
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Launch Application') {
             agent {
