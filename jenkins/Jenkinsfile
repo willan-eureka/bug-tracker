@@ -4,40 +4,40 @@ pipeline {
     stages {
         stage('Execute Unit Tests') {
             parallel {
-                // stage('Unit Tests - Backend') {
-                //     // agent {
-                //     //     docker {
-                //     //         image 'snakee/golang-junit:1.22'
-                //     //         reuseNode true
-                //     //     }
-                //     // }
-                //     steps {
-                //         dir('bugtracker-backend') {
-                //             sh '''
-                //                 go test -v ./...
-                //                 #Generate coverage report
-                //                 go test -coverprofile=coverage.out -covermode=atomic ./...
-                //                 go tool cover -html=coverage.out -o coverage.html
+                stage('Unit Tests - Backend') {
+                    // agent {
+                    //     docker {
+                    //         image 'snakee/golang-junit:1.22'
+                    //         reuseNode true
+                    //     }
+                    // }
+                    steps {
+                        dir('bugtracker-backend') {
+                            sh '''
+                                go test -v ./...
+                                #Generate coverage report
+                                go test -coverprofile=coverage.out -covermode=atomic ./...
+                                go tool cover -html=coverage.out -o coverage.html
 
-                //                 mkdir -p reports
-                //                 mv coverage.html reports/
-                //             '''
-                //             // sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
-                //             // sh 'go test -v ./...'
+                                mkdir -p reports
+                                mv coverage.html reports/
+                            '''
+                            // sh 'go test -v ./... 2>&1 | go-junit-report > test-results.xml'
+                            // sh 'go test -v ./...'
 
-                //         }
-                //     }
-                //     post {
-                //         always {
-                //             // junit 'bugtracker-backend/test-results.xml'
-                //             publishHTML target: [
-                //                 reportDir: 'bugtracker-backend/reports',
-                //                 reportFiles: 'coverage.html',
-                //                 reportName: 'Backend Coverage Report'
-                //             ]
-                //         }
-                //     }
-                // }
+                        }
+                    }
+                    post {
+                        always {
+                            // junit 'bugtracker-backend/test-results.xml'
+                            publishHTML target: [
+                                reportDir: 'bugtracker-backend/reports',
+                                reportFiles: 'coverage.html',
+                                reportName: 'Backend Coverage Report'
+                            ]
+                        }
+                    }
+                }
 
                 stage('Unit Tests - Frontend') {
                     agent {
