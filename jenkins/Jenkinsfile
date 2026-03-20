@@ -16,7 +16,7 @@ pipeline {
             agent {
                 docker {
                     // image 'snakee/golang-junit:1.21'
-                    image 'marcosmrls/golang-junit'
+                    image 'andrskom/golang-junit:1.11.5'
                     reuseNode true
                 }
             }
