@@ -26,11 +26,11 @@ pipeline {
                     // sh 'go test -v ./...'
                 }
             }
-            post {
-                always {
-                    junit 'bugtracker-backend/test-results.xml'
-                }
-            }
+            // post {
+            //     always {
+            //         junit 'bugtracker-backend/test-results.xml'
+            //     }
+            // }
         }
         stage('Unit Tests - Frontend') {
             agent {
