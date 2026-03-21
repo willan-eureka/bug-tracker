@@ -159,6 +159,15 @@ pipeline {
                     sh 'k6 run script.js'
                 }
             }
+            post {
+                always {
+                    publishHTML target: [
+                        reportDir: 'tests-e2e',
+                        reportFiles: 'perf-results.html',
+                        reportName: 'Performance Test Results Report'
+                    ]
+                }
+            }
         }
     }
     post {
