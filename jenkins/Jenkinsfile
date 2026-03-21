@@ -140,7 +140,7 @@ pipeline {
         //             publishHTML target: [
         //                 reportDir: 'tests-e2e/playwright-report',
         //                 reportFiles: 'index.html',
-        //                 reportName: 'Playwright API Test Report'
+        //                 reportName: 'Playwright E2E Test Report'
         //             ]
         //         }
         //     }
@@ -151,12 +151,12 @@ pipeline {
                 docker {
                     image 'grafana/k6:latest'
                     reuseNode true
-                    args '--network=hosts -u root --entrypoint=""'
+                    args '--network=host -u root --entrypoint=""'
                 }
             }
             steps {
                 dir('tests-perf') {
-                    sh 'k6 script.js'
+                    sh 'k6 run script.js'
                 }
             }
         }
