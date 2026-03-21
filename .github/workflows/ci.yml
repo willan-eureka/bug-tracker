@@ -21,7 +21,7 @@ jobs:
         run: |
           go test -v ./...
 
-  unit-tests-backend:
+  unit-tests-frontend:
     needs: unit-tests-backend
     runs-on: ubuntu-latest
     steps:
