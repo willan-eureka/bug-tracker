@@ -46,4 +46,4 @@ jobs:
         with:
           name: Frontend Unit Tests Report
           path: bugtracker-frontend/test-results.xml
-          reporter: jest-unit
+          reporter: jest-junit
