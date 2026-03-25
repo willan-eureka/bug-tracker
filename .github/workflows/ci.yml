@@ -167,3 +167,27 @@ jobs:
           name: API Test Report
           path: ./tests-api/test-results/*.xml
           reporter: jest-junit
+
+      - name: Upload E2E Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: e2e-test-results
+          path: ./tests-e2e/test-results
+          retention-days: 30
+
+      - name: Upload E2E Test Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: e2e-test-playwright-report
+          path: ./tests-e2e/test-results
+          retention-days: 30
+
+      - name : Publish E2E Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with: 
+          name: E2E Test Report
+          path: ./tests-e2e/test-results/results.xml
+          reporter: jest-junit
