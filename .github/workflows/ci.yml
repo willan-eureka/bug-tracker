@@ -200,3 +200,19 @@ jobs:
           name: E2E Test Report
           path: ./tests-e2e/test-results/results.xml
           reporter: jest-junit
+
+      - name: Upload Performance Raw Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: performance-raw-results
+          path: ./tests-perf/summary.json
+          retention-days: 30
+
+      - name: Upload Performance HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name: performance-report
+          path: ./tests-perf/perf-results.html
+          retention-days: 30
