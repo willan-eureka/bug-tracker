@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for bugtracker-frontend-lively-flower-5051-will on 2026-03-30T12:08:39-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'bugtracker-frontend-lively-flower-5051-will'
+primary_region = 'gru'
+
+[build.args]
+  NEXT_PUBLIC_API_URL= "https://bugtracker-backend-staging-sil-will.fly.dev"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '256mb'
+  cpus = 1
+  memory_mb = 256
