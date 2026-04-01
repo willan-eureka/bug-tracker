@@ -185,6 +185,12 @@ pipeline {
             stages {
                 stage('Install Flyctl') {
                     steps {
+                        echo "PRINTING ENVIRONMENT VARIABLES"
+                        echo "${env.WORKSPACE}"
+                        echo "${WORKSPACE}"
+                        echo "${FLYCTL_INSTALL}"
+                        echo "/PRINTING ENVIRONMENT VARIABLES"
+                        
                         sh 'mkdir -p $FLYCTL_INSTALL'
                         sh 'curl -L https://fly.io/install.sh | sh'
                         sh 'flyctl version'
